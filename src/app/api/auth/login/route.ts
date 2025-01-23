@@ -4,6 +4,7 @@ import jwt from "jsonwebtoken";
 import User from "@/schema/userModule";
 import { connect } from "@/dbconfig/dbconfig";
 
+
 connect();
 
 export async function POST(request: NextRequest) {
@@ -48,7 +49,12 @@ export async function POST(request: NextRequest) {
     });
 
     return response;
-  } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+  } catch (error) {
+    if (error instanceof Error) {
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+    else {
+
+    }
   }
 }

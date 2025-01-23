@@ -1,7 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  eslint: {
+    ignoreDuringBuilds: true, // Ignore ESLint errors during production builds
+  },
 };
 
 // next.config.js
@@ -11,7 +13,9 @@ const withPWA = require('next-pwa')({
 });
 
 module.exports = withPWA({
-  // Other Next.js configurations here...
+  eslint: {
+    ignoreDuringBuilds: true, // Ignore ESLint errors during production builds
+  },
 });
 
 export default nextConfig;

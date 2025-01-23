@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import { useUserContext } from "@/context/UserContext";
@@ -23,15 +23,15 @@ export default function Page() {
         setLoading(true);
         try {
             const response = await axios.post("/api/auth/login", user);
-            
+
             // Store user in local storage and context
             localStorage.setItem("user", JSON.stringify(response.data.user));
             login(response.data.user);
-            
+
             // Success toast and navigation
             toast.success("Login successful");
             router.push("/dashboard");
-        } catch (error: any) {
+        } catch (error: AxiosError | any) {
             // Detailed error handling
             if (error.response) {
                 switch (error.response.status) {
@@ -110,7 +110,7 @@ export default function Page() {
                         disabled={buttonDisabled || loading}
                         className={`w-full py-3 rounded-lg text-white font-semibold transition duration-300 ease-in-out 
                             ${buttonDisabled || loading
-                                ? "bg-gray-400 cursor-not-allowed" 
+                                ? "bg-gray-400 cursor-not-allowed"
                                 : "bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
                             }`}
                     >
@@ -120,9 +120,9 @@ export default function Page() {
 
                 <div className="text-center">
                     <p className="text-gray-600">
-                        Not registered? 
-                        <a 
-                            href="/auth/signup" 
+                        Not registered?
+                        <a
+                            href="/auth/signup"
                             className="text-blue-600 hover:text-blue-800 ml-2 font-medium transition duration-300"
                         >
                             Sign up here

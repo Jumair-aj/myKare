@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server";
+import {  NextResponse } from "next/server";
 import User from "@/schema/userModule";
 import { connect } from "@/dbconfig/dbconfig";
 
@@ -19,7 +19,12 @@ export async function GET() {
       message: "Users retrieved successfully",
       success: true,
     });
-  } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+  } catch (error) {
+    if (error instanceof Error) {
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+    else {
+
+    }
   }
 }

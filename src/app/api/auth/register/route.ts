@@ -10,7 +10,7 @@ export async function POST(request: NextRequest) {
     const reqBody = await request.json();
     const { username, email, password } = reqBody;
     const existingUser = await User.findOne({
-      $or : [{ email }, { username }]
+      $or: [{ email }, { username }]
     });
 
     if (existingUser) {
@@ -50,7 +50,12 @@ export async function POST(request: NextRequest) {
       success: true,
       savedUser
     });
-  } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+  } catch (error) {
+    if (error instanceof Error) {
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+    else {
+
+    }
   }
 }
